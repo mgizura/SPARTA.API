@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/SPARTA.API/bin
+/SPARTA.API/obj 
+/SPARTA.Domain/bin 
+/SPARTA.Domain/obj
+/SPARTA.Infrastructure/bin
+/SPARTA.Infrastructure/obj
+/SPARTA.Service/bin
+/SPARTA.Service/obj
