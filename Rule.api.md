@@ -201,6 +201,74 @@ Al crear un nuevo caso de uso (por ejemplo: "Products"), seguir esta estructura:
 
 ---
 
+## 🌐 Regla de Nomenclatura: Campos en Inglés
+
+**IMPORTANTE**: Todos los campos, propiedades y nombres de columnas en la base de datos DEBEN estar en inglés.
+
+### Base de Datos
+- ✅ Usar nombres de columnas en inglés: `Username`, `Email`, `FirstName`, `LastName`, `IsActive`, `CreatedAt`, `UpdatedAt`
+- ❌ NO usar español: `NombreUsuario`, `Nombre`, `Apellido`, `Activo`, `FechaCreacion`
+
+### Backend (C#)
+- ✅ Propiedades en inglés: `Username`, `Email`, `FirstName`, `LastName`, `IsActive`, `CreatedAt`, `UpdatedAt`
+- ✅ Parámetros de métodos en inglés: `username`, `email`, `firstName`
+- ✅ Nombres de métodos en inglés: `GetByUsernameAsync`, `ExistsByEmailAsync`
+
+### Frontend (JavaScript/React)
+- ✅ Variables y propiedades en inglés: `username`, `email`, `firstName`, `lastName`, `isActive`
+- ✅ Nombres de campos en formularios en inglés: `username`, `password`
+- ✅ Propiedades de objetos en inglés: `user.username`, `user.email`
+
+### Ejemplo de Mapeo Correcto
+
+**Base de Datos:**
+```sql
+CREATE TABLE [dbo].[Users] (
+    [Id] INT IDENTITY(1,1) PRIMARY KEY,
+    [Username] NVARCHAR(100) NOT NULL,
+    [Email] NVARCHAR(255) NOT NULL,
+    [FirstName] NVARCHAR(200) NULL,
+    [LastName] NVARCHAR(200) NULL,
+    [IsActive] BIT NOT NULL DEFAULT 1,
+    [CreatedAt] DATETIME2 NOT NULL DEFAULT GETDATE(),
+    [UpdatedAt] DATETIME2 NULL
+);
+```
+
+**Entidad C#:**
+```csharp
+public class User
+{
+    public int Id { get; set; }
+    public string Username { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public string? FirstName { get; set; }
+    public string? LastName { get; set; }
+    public bool IsActive { get; set; } = true;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime? UpdatedAt { get; set; }
+}
+```
+
+**Frontend JavaScript:**
+```javascript
+const loginData = {
+  username: 'admin',
+  password: 'password123'
+};
+
+const user = {
+  id: 1,
+  username: 'admin',
+  email: 'admin@example.com',
+  firstName: 'John',
+  lastName: 'Doe',
+  isActive: true
+};
+```
+
+---
+
 ## 🔄 Ejemplo Completo: Users
 
 ```
@@ -239,4 +307,3 @@ SPARTA.Infrastructure/
 ---
 
 **Última actualización**: 2024
-
