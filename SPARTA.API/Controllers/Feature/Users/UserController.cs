@@ -11,11 +11,13 @@ namespace SPARTA.API.Controllers.Feature.Users;
 public class UserController : ControllerBase
 {
     private readonly IAuthService _authService;
+    private readonly IUserService _userService;
     private readonly ILogger<UserController> _logger;
 
-    public UserController(IAuthService authService, ILogger<UserController> logger)
+    public UserController(IAuthService authService, IUserService userService, ILogger<UserController> logger)
     {
         _authService = authService;
+        _userService = userService;
         _logger = logger;
     }
 
@@ -55,6 +57,62 @@ public class UserController : ControllerBase
         }
     }
 
+    [HttpGet]
+    [Authorize]
+    public async Task<ActionResult<IEnumerable<UserResponse>>> GetAllUsers()
+    {
+        try
+        {
+            var users = await _userService.GetAllUsersAsync();
+            var response = users.Select(u => new UserResponse
+            {
+                Id = u.Id,
+                Username = u.Username,
+                Email = u.Email,
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                IsActive = u.IsActive
+            });
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al obtener usuarios");
+            return StatusCode(500, new { message = "Error interno del servidor" });
+        }
+    }
+
+    [HttpPut("{id}/change-password")]
+    [Authorize]
+    public async Task<ActionResult> ChangePassword(int id, [FromBody] ChangePasswordRequest request)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(request.NewPassword) || string.IsNullOrWhiteSpace(request.ConfirmPassword))
+            {
+                return BadRequest(new { message = "La contraseña y la confirmación son requeridas" });
+            }
+
+            if (request.NewPassword != request.ConfirmPassword)
+            {
+                return BadRequest(new { message = "Las contraseñas no coinciden" });
+            }
+
+            var result = await _userService.ChangePasswordAsync(id, request.NewPassword);
+            if (!result)
+            {
+                return NotFound(new { message = "Usuario no encontrado" });
+            }
+
+            return Ok(new { message = "Contraseña actualizada exitosamente" });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al cambiar contraseña");
+            return StatusCode(500, new { message = "Error interno del servidor" });
+        }
+    }
+
     [HttpPost("hash-password")]
     [AllowAnonymous]
     public ActionResult<HashPasswordResponse> HashPassword([FromBody] HashPasswordRequest request)
@@ -70,6 +128,12 @@ public class UserController : ControllerBase
             return StatusCode(500, new { message = "Error interno del servidor" });
         }
     }
+}
+
+public class ChangePasswordRequest
+{
+    public string NewPassword { get; set; } = string.Empty;
+    public string ConfirmPassword { get; set; } = string.Empty;
 }
 
 public class HashPasswordRequest
