@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using SPARTA.Domain.Interfaces.Users;
 using SPARTA.Infrastructure.Repositories;
+using SPARTA.Service.Feature.History.CaseUse;
+using SPARTA.Service.Feature.History.Interfaces;
 using SPARTA.Service.Feature.Users.CaseUse;
 using SPARTA.Service.Feature.Users.Interfaces;
 
@@ -76,6 +78,7 @@ public static class ServiceExtensions
     {
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IHistoryService, HistoryService>();
     }
 }
 
