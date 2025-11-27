@@ -11,11 +11,11 @@ using System.Reflection;
 // Azure OpenAI
 const string modelName = "gpt-4o-mini";
 const string endpoint = "https://hackaton2025violeta.openai.azure.com/";
-const string apiKey = "   ";
+const string apiKey = "7QHQSXyiI5xIyNlLzeyIZLh1d2bbjdS8upnaIWVi8OmGg2mBitfTJQQJ99BKACLArgHXJ3w3AAABACOGVIp6";
 
 // MCP GitHub Copilot
 const string mcpEndpoint = "https://api.githubcopilot.com/mcp/";
-const string mcpAuthToken = "    ";
+const string mcpAuthToken = "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";
 
 // Configuración por defecto para GitHub
 // TODO: Reemplaza con tu usuario/organización de GitHub
