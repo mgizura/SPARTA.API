@@ -11,7 +11,7 @@ namespace SPARTA.Service.Feature.History.CaseUse
     {
         private const string modelName = "gpt-4o-mini";
         private const string endpoint = "https://hackaton2025violeta.openai.azure.com/";
-        private const string apiKey = "7QHQSXyiI5xIyNlLzeyIZLh1d2bbjdS8upnaIWVi8OmGg2mBitfTJQQJ99BKACLArgHXJ3w3AAABACOGVIp6";
+        private const string apiKey = "   ";
 
         public HistoryService()
         {
