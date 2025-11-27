@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPARTA.Infrastructure", "SP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPARTA.API", "SPARTA.API\SPARTA.API.csproj", "{12911791-04B9-4EAA-8DEF-5BB1CA46A6C9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPARTA.Console", "SPARTA.Console\SPARTA.Console.csproj", "{FB2D4F78-F8BD-4274-AB44-4DB0F736E1AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,18 @@ Global
 		{12911791-04B9-4EAA-8DEF-5BB1CA46A6C9}.Release|x64.Build.0 = Release|Any CPU
 		{12911791-04B9-4EAA-8DEF-5BB1CA46A6C9}.Release|x86.ActiveCfg = Release|Any CPU
 		{12911791-04B9-4EAA-8DEF-5BB1CA46A6C9}.Release|x86.Build.0 = Release|Any CPU
+		{FB2D4F78-F8BD-4274-AB44-4DB0F736E1AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB2D4F78-F8BD-4274-AB44-4DB0F736E1AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB2D4F78-F8BD-4274-AB44-4DB0F736E1AD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FB2D4F78-F8BD-4274-AB44-4DB0F736E1AD}.Debug|x64.Build.0 = Debug|Any CPU
+		{FB2D4F78-F8BD-4274-AB44-4DB0F736E1AD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FB2D4F78-F8BD-4274-AB44-4DB0F736E1AD}.Debug|x86.Build.0 = Debug|Any CPU
+		{FB2D4F78-F8BD-4274-AB44-4DB0F736E1AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB2D4F78-F8BD-4274-AB44-4DB0F736E1AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB2D4F78-F8BD-4274-AB44-4DB0F736E1AD}.Release|x64.ActiveCfg = Release|Any CPU
+		{FB2D4F78-F8BD-4274-AB44-4DB0F736E1AD}.Release|x64.Build.0 = Release|Any CPU
+		{FB2D4F78-F8BD-4274-AB44-4DB0F736E1AD}.Release|x86.ActiveCfg = Release|Any CPU
+		{FB2D4F78-F8BD-4274-AB44-4DB0F736E1AD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
