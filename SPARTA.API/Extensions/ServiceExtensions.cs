@@ -5,14 +5,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using SPARTA.Domain.Interfaces.Users;
-using SPARTA.Domain.Interfaces.Provinces;
 using SPARTA.Infrastructure.Repositories;
 using SPARTA.Service.Feature.History.CaseUse;
 using SPARTA.Service.Feature.History.Interfaces;
 using SPARTA.Service.Feature.Users.CaseUse;
 using SPARTA.Service.Feature.Users.Interfaces;
-using SPARTA.Service.Feature.Provinces.CaseUse;
-using SPARTA.Service.Feature.Provinces.Interfaces;
 
 namespace SPARTA.API.Extensions;
 
@@ -75,7 +72,6 @@ public static class ServiceExtensions
     public static void ConfigureRepositories(this IServiceCollection services)
     {
         services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IProvinceRepository, ProvinceRepository>();
     }
 
     public static void ConfigureServices(this IServiceCollection services)
@@ -83,7 +79,6 @@ public static class ServiceExtensions
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IHistoryService, HistoryService>();
-        services.AddScoped<IProvinceService, ProvinceService>();
     }
 }
 

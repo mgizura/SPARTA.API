@@ -12,7 +12,9 @@ using System.Text.Json;
 // ======================================================
 
 // Azure OpenAI
-const string modelName = "gpt-4o-mini";
+// IMPORTANTE: El modelName debe coincidir exactamente con el nombre del deployment en Azure OpenAI
+// Verifica en Azure Portal > Azure OpenAI > Deployments el nombre exacto de tu deployment
+const string modelName = "gpt-4o-mini"; // Asegúrate de que este sea el nombre del deployment, no solo el modelo
 const string endpoint = "https://hackaton2025violeta.openai.azure.com/";
 const string apiKey = "7QHQSXyiI5xIyNlLzeyIZLh1d2bbjdS8upnaIWVi8OmGg2mBitfTJQQJ99BKACLArgHXJ3w3AAABACOGVIp6";
 
@@ -27,11 +29,17 @@ const string defaultGitHubOwner = "mizura"; // Cambia esto por tu usuario o orga
 
 IChatClient GetChatClient()
 {
-    return new ChatCompletionsClient(
-             endpoint: new Uri(endpoint),
-             new AzureKeyCredential(apiKey)
-             )
-             .AsIChatClient(modelName);
+    // Usar ChatCompletionsClient de Azure.AI.Inference
+    // NOTA: Si el error 404 persiste, verifica:
+    // 1. El nombre del deployment en Azure Portal (puede ser diferente de "gpt-4o-mini")
+    // 2. Que el endpoint sea correcto (sin /openai al final)
+    // 3. Que la API key tenga permisos para acceder al deployment
+    var client = new ChatCompletionsClient(
+        endpoint: new Uri(endpoint.TrimEnd('/')), // Asegurar que no termine con /
+        credential: new AzureKeyCredential(apiKey)
+    );
+
+    return client.AsIChatClient(modelName);
 }
 
 
@@ -60,8 +68,8 @@ var mcpTools = await mcp.ListToolsAsync();
 IChatClient chatClient = GetChatClient();
 var chatoptions = new ChatOptions
 {
-    Tools = [.. mcpTools],
-    ModelId = modelName
+    Tools = [.. mcpTools]
+    // ModelId ya está configurado en GetChatClient() mediante AsIChatClient(modelName)
 };
 var result = await chatClient.GetResponseAsync("Listame todos los repositorios", chatoptions);
 
