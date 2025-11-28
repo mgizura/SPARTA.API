@@ -20,26 +20,23 @@ const string apiKey = "7QHQSXyiI5xIyNlLzeyIZLh1d2bbjdS8upnaIWVi8OmGg2mBitfTJQQJ9
 
 // MCP GitHub Copilot
 const string mcpEndpoint = "https://api.githubcopilot.com/mcp/";
-const string mcpAuthToken = "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";
+const string mcpAuthToken = "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";
 
-const string defaultGitHubOwner = "mizura"; // Cambia esto por tu usuario o organización de GitHub
+const string defaultGitHubOwner = "mgizura"; // Cambia esto por tu usuario o organización de GitHub
 
 
 
 
 IChatClient GetChatClient()
 {
-    // Usar ChatCompletionsClient de Azure.AI.Inference
-    // NOTA: Si el error 404 persiste, verifica:
-    // 1. El nombre del deployment en Azure Portal (puede ser diferente de "gpt-4o-mini")
-    // 2. Que el endpoint sea correcto (sin /openai al final)
-    // 3. Que la API key tenga permisos para acceder al deployment
-    var client = new ChatCompletionsClient(
-        endpoint: new Uri(endpoint.TrimEnd('/')), // Asegurar que no termine con /
-        credential: new AzureKeyCredential(apiKey)
-    );
-
-    return client.AsIChatClient(modelName);
+    return new ChatCompletionsClient(
+                   endpoint: new Uri(endpoint),
+                   new AzureKeyCredential(apiKey)
+                   )
+                     .AsIChatClient("xai/grok-3-mini")
+                   .AsBuilder()
+                   .UseFunctionInvocation()
+                   .Build();
 }
 
 
@@ -68,20 +65,9 @@ var mcpTools = await mcp.ListToolsAsync();
 IChatClient chatClient = GetChatClient();
 var chatoptions = new ChatOptions
 {
-    Tools = [.. mcpTools]
-    // ModelId ya está configurado en GetChatClient() mediante AsIChatClient(modelName)
+    Tools = [.. mcpTools],
+    ModelId = "xai/grok-3-mini"
 };
 var result = await chatClient.GetResponseAsync("Listame todos los repositorios", chatoptions);
 
-// Crear opciones de chat
-//var chatOptions = new ChatCompletionsOptions()
-//{
-//    Messages = { new ChatMessage(ChatRole.System, "asd") },
-//    Temperature = 0.4f,
-//    MaxTokens = 2000,
-//    NucleusSamplingFactor = 0.95f,
-//    FrequencyPenalty = 0,
-//    PresencePenalty = 0,
-//};
 
-//var response = await azureClient.GetChatCompletionsAsync(modelName, chatOptions);
